@@ -25,11 +25,30 @@ void data_task(void *p) {
 
 void process_task(void *p) {
     int data = 0;
+    int tamanho_media = 5;
+    int buffer[5] = {0};
+    int soma = 0;
+    int i = 0;
+    int contador = 0;
 
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
             // implementar filtro aqui!
+            soma -= buffer[i];
 
+            buffer[i] = data;
+            soma += data;
+
+            i = (i + 1) % tamanho_media;
+
+            if (contador < tamanho_media) {
+                contador++;
+            }
+
+            if (contador == tamanho_media) {
+                int media_movel = soma / tamanho_media;
+                printf("%d\n", media_movel);
+            }
 
 
 
