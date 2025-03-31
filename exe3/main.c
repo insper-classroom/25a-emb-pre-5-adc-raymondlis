@@ -33,28 +33,28 @@ void process_task(void *p) {
 
     while (true) {
         if (xQueueReceive(xQueueData, &data, 100)) {
-            int buffer[5] = {0};
-            int soma = 0;
-            int i = 0;
-            int contador = 0;
-            
+            // implementar filtro aqui!
             soma -= buffer[i];
+
             buffer[i] = data;
             soma += data;
-            
-            i = (i + 1) % 5;
-            if (contador < 5) {
+
+            i = (i + 1) % tamanho_media;
+
+            if (contador < tamanho_media) {
                 contador++;
             }
-            
-            if (contador == 5) {
-                int media_movel = soma / 5;
+
+            if (contador == tamanho_media) {
+                int media_movel = soma / tamanho_media;
                 printf("%d\n", media_movel);
             }
-            
+
+
+
+            // deixar esse delay!
             vTaskDelay(pdMS_TO_TICKS(50));
         }
-        
     }
 }
 
